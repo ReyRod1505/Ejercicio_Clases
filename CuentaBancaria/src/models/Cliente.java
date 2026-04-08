@@ -11,18 +11,6 @@ public class Cliente {
         this.apellidos = apellidos;
     }
 
-    public String getIdentificacion() {
-        return identificacion;
-    }
-
-    public String getNombres() {
-        return nombres;
-    }
-
-    public String getApellidos() {
-        return apellidos;
-    }
-
     @Override
     public String toString() {
         return "Cliente: " + nombres + " " + apellidos +

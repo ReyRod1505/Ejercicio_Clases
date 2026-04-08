@@ -1,5 +1,7 @@
 package models;
 
+import javax.swing.JOptionPane;
+
 public class Cuenta {
     private String numeroCuenta;
     private double saldo;
@@ -7,11 +9,7 @@ public class Cuenta {
 
     public Cuenta(String numeroCuenta, double saldo, Cliente cliente) {
         this.numeroCuenta = numeroCuenta;
-        if (saldo >= 0) {
-            this.saldo = saldo;
-        } else {
-            this.saldo = 0;
-        }
+        this.saldo = (saldo >= 0) ? saldo : 0;
         this.cliente = cliente;
     }
 
@@ -22,26 +20,21 @@ public class Cuenta {
     public void depositar(double monto) {
         if (monto > 0) {
             saldo += monto;
-            System.out.println("Depósito realizado con éxito.");
+            JOptionPane.showMessageDialog(null, "Depósito realizado con éxito.");
         } else {
-            System.out.println("Error: el monto a depositar debe ser mayor que 0.");
+            JOptionPane.showMessageDialog(null, "Error: monto inválido.");
         }
     }
 
-    public double retirar(double monto) {
+    public void retirar(double monto) {
         if (monto <= 0) {
-            System.out.println("Error: el monto a retirar debe ser mayor que 0.");
-            return 0;
+            JOptionPane.showMessageDialog(null, "Error: monto inválido.");
+        } else if (monto > saldo) {
+            JOptionPane.showMessageDialog(null, "Error: saldo insuficiente.");
+        } else {
+            saldo -= monto;
+            JOptionPane.showMessageDialog(null, "Retiro realizado con éxito.");
         }
-
-        if (monto > saldo) {
-            System.out.println("Error: saldo insuficiente.");
-            return 0;
-        }
-
-        saldo -= monto;
-        System.out.println("Retiro realizado con éxito.");
-        return monto;
     }
 
     public String mostrarDatos() {

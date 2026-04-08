@@ -1,34 +1,36 @@
-import java.util.Scanner;
+import javax.swing.JOptionPane;
 import models.Cliente;
 import models.Cuenta;
 
 public class Main {
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
 
-        System.out.println("=== SISTEMA DE CUENTA BANCARIA ===");
+        // Datos del cliente
+        String identificacion = JOptionPane.showInputDialog("Ingrese la identificación:");
+        String nombres = JOptionPane.showInputDialog("Ingrese los nombres:");
+        String apellidos = JOptionPane.showInputDialog("Ingrese los apellidos:");
+        String numeroCuenta = JOptionPane.showInputDialog("Ingrese el número de cuenta:");
 
-        System.out.print("Ingrese la identificación del cliente: ");
-        String identificacion = sc.nextLine();
+        double saldoInicial = 0;
+        boolean valido = false;
 
-        System.out.print("Ingrese los nombres del cliente: ");
-        String nombres = sc.nextLine();
-
-        System.out.print("Ingrese los apellidos del cliente: ");
-        String apellidos = sc.nextLine();
-
-        System.out.print("Ingrese el número de cuenta: ");
-        String numeroCuenta = sc.nextLine();
-
-        double saldoInicial;
+        // Validación de saldo inicial
         do {
-            System.out.print("Ingrese el saldo inicial: ");
-            saldoInicial = sc.nextDouble();
+            try {
+                saldoInicial = Double.parseDouble(
+                        JOptionPane.showInputDialog("Ingrese saldo inicial:")
+                );
 
-            if (saldoInicial < 0) {
-                System.out.println("Error: no se permite saldo negativo.");
+                if (saldoInicial >= 0) {
+                    valido = true;
+                } else {
+                    JOptionPane.showMessageDialog(null, "No se permite saldo negativo.");
+                }
+
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, "Ingrese un número válido.");
             }
-        } while (saldoInicial < 0);
+        } while (!valido);
 
         Cliente cliente = new Cliente(identificacion, nombres, apellidos);
         Cuenta cuenta = new Cuenta(numeroCuenta, saldoInicial, cliente);
@@ -36,47 +38,55 @@ public class Main {
         int opcion;
 
         do {
-            System.out.println("\n=== MENÚ ===");
-            System.out.println("1. Consultar saldo");
-            System.out.println("2. Depositar dinero");
-            System.out.println("3. Retirar dinero");
-            System.out.println("4. Mostrar datos de la cuenta");
-            System.out.println("5. Salir");
-            System.out.print("Seleccione una opción: ");
-            opcion = sc.nextInt();
+            String menu = "=== MENÚ ===\n"
+                    + "1. Consultar saldo\n"
+                    + "2. Depositar dinero\n"
+                    + "3. Retirar dinero\n"
+                    + "4. Mostrar datos\n"
+                    + "5. Salir";
+
+            opcion = Integer.parseInt(JOptionPane.showInputDialog(menu));
 
             switch (opcion) {
                 case 1:
-                    System.out.println("Saldo actual: C$ " + cuenta.consultarSaldo());
+                    JOptionPane.showMessageDialog(null,
+                            "Saldo actual: C$ " + cuenta.consultarSaldo());
                     break;
 
                 case 2:
-                    System.out.print("Ingrese el monto a depositar: ");
-                    double deposito = sc.nextDouble();
-                    cuenta.depositar(deposito);
+                    try {
+                        double deposito = Double.parseDouble(
+                                JOptionPane.showInputDialog("Monto a depositar:")
+                        );
+                        cuenta.depositar(deposito);
+                    } catch (Exception e) {
+                        JOptionPane.showMessageDialog(null, "Entrada inválida.");
+                    }
                     break;
 
                 case 3:
-                    System.out.print("Ingrese el monto a retirar: ");
-                    double retiro = sc.nextDouble();
-                    cuenta.retirar(retiro);
+                    try {
+                        double retiro = Double.parseDouble(
+                                JOptionPane.showInputDialog("Monto a retirar:")
+                        );
+                        cuenta.retirar(retiro);
+                    } catch (Exception e) {
+                        JOptionPane.showMessageDialog(null, "Entrada inválida.");
+                    }
                     break;
 
                 case 4:
-                    System.out.println("\n=== DATOS DE LA CUENTA ===");
-                    System.out.println(cuenta.mostrarDatos());
+                    JOptionPane.showMessageDialog(null, cuenta.mostrarDatos());
                     break;
 
                 case 5:
-                    System.out.println("Gracias por usar el sistema.");
+                    JOptionPane.showMessageDialog(null, "Gracias por usar el sistema.");
                     break;
 
                 default:
-                    System.out.println("Opción inválida. Intente nuevamente.");
+                    JOptionPane.showMessageDialog(null, "Opción inválida.");
             }
 
         } while (opcion != 5);
-
-        sc.close();
     }
 }
