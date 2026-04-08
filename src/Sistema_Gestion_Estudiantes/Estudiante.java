@@ -1,8 +1,8 @@
 package Sistema_Gestion_Estudiantes;
 
 public class Estudiante {
-    private String codigo;
-    private String nombre;
+    private String codigo_estudiante;
+    private String nombre_estudiante;
     private float promedio;
     private Carrera carrera;
 
@@ -10,27 +10,27 @@ public class Estudiante {
     public Estudiante() {
     }
 
-    public Estudiante(String codigo, String nombre, float promedio, Carrera carrera) {
-        this.codigo = codigo;
-        this.nombre = nombre;
+    public Estudiante(String codigo_estudiante, String nombre_estudiante, float promedio, Carrera carrera) {
+        this.codigo_estudiante = codigo_estudiante;
+        this.nombre_estudiante = nombre_estudiante;
         this.promedio = promedio;
         this.carrera = carrera;
     }
 
-    public String getCodigo() {
-        return codigo;
+    public String getCodigo_estudiante() {
+        return codigo_estudiante;
     }
 
-    public void setCodigo(String codigo) {
-        this.codigo = codigo;
+    public void setCodigo_estudiante(String codigo_estudiante) {
+        this.codigo_estudiante = codigo_estudiante;
     }
 
-    public String getNombre() {
-        return nombre;
+    public String getNombre_estudiante() {
+        return nombre_estudiante;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setNombre_estudiante(String nombre_estudiante) {
+        this.nombre_estudiante = nombre_estudiante;
     }
 
     public float getPromedio() {
@@ -56,12 +56,13 @@ public class Estudiante {
     @Override
     public String toString() {
         return "Estudiante{" +
-                "codigo='" + codigo + '\'' +
-                ", nombre='" + nombre + '\'' +
+                "codigo_estudiante='" + codigo_estudiante + '\'' +
+                ", nombre_estudiante='" + nombre_estudiante + '\'' +
                 ", promedio=" + promedio +
                 ", carrera=" + carrera +
                 ", aprobar= " + aprobar() +
                 '}';
     }
 }
+
 
